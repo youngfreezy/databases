@@ -29,9 +29,6 @@ CREATE TABLE MessagesRoomsBridge (
   message_id int NOT NULL,
   room_id int NOT NULL,
   user_id int NOT NULL,
-  FOREIGN KEY(message_id) REFERENCES Messages(M_id),
-  FOREIGN KEY(room_id) REFERENCES Rooms(R_id),
-  FOREIGN KEY(user_id) REFERENCES Users(U_id),
   PRIMARY KEY(MR_id, message_id, room_id, user_id)
 );
 
