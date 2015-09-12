@@ -3,35 +3,36 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE Messages (
-  M_id int NOT NULL,
+  M_id int NOT NULL AUTO_INCREMENT,
   messageText varchar(1000) NOT NULL,
   created_at timestamp,
   PRIMARY KEY (M_id)
 );
 
 CREATE TABLE Users (
-  U_id int NOT NULL,
+  U_id int NOT NULL AUTO_INCREMENT,
   username varchar(100) NOT NULL,
   PRIMARY KEY (U_id),
   UNIQUE (username)
 );
 
 CREATE TABLE Rooms (
-  R_id int NOT NULL,
+  R_id int NOT NULL AUTO_INCREMENT,
   name varchar(20) NOT NULL,
   PRIMARY KEY (R_id)
 );
 
 -- if you want to get rid of a referenced table below, first you need to get rid of this table, then drop the one above.  
 CREATE TABLE MessagesRoomsBridge (
-  MR_id int NOT NULL,
+  -- we need a primary composite key here to ensure that the combo of messages/users/rooms doesn't repeat.  
+  MR_id int NOT NULL AUTO_INCREMENT,
   message_id int NOT NULL,
   room_id int NOT NULL,
   user_id int NOT NULL,
   FOREIGN KEY(message_id) REFERENCES Messages(M_id),
   FOREIGN KEY(room_id) REFERENCES Rooms(R_id),
   FOREIGN KEY(user_id) REFERENCES Users(U_id),
-  PRIMARY KEY(MR_id)
+  PRIMARY KEY(MR_id, message_id, room_id, user_id)
 );
 
 /*  Execute this file from the command line by typing:
