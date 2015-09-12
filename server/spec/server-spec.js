@@ -16,11 +16,24 @@ describe("Persistent Node Chat Server", function() {
     });
     dbConnection.connect();
 
-       var tablename = ""; // TODO: fill this out
+    var messagestable = "Messages";
+    var bridgestable = "MessagesRoomsBridge";
+    var roomstable = "Rooms";
+    var userstable = "Users";
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
-    dbConnection.query("truncate " + tablename, done);
+    dbConnection.query("truncate " + messagestable, done);
+    dbConnection.query("truncate " + bridgestable, done);
+    dbConnection.query("truncate " + roomstable, done);
+    dbConnection.query("truncate " + userstable, done);
+
+    request({ method: "POST",
+              uri: "http://127.0.0.1:3000/classes/rooms",
+              json: { roomname: "Lobby" }
+    },function(){
+
+    });
   });
 
   afterEach(function() {
@@ -65,7 +78,7 @@ describe("Persistent Node Chat Server", function() {
 
   it("Should output all messages from the DB", function(done) {
     // Let's insert a message into the db
-       var tablename = ""; // TODO: fill this out
+    var tablename = ""; // TODO: fill this out
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */

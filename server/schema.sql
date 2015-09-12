@@ -3,9 +3,8 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE Messages (
-  /* Describe your table here.*/
   M_id int NOT NULL,
-  text varchar(1000) NOT NULL,
+  messageText varchar(1000) NOT NULL,
   created_at timestamp,
   PRIMARY KEY (M_id)
 );
@@ -13,7 +12,8 @@ CREATE TABLE Messages (
 CREATE TABLE Users (
   U_id int NOT NULL,
   username varchar(100) NOT NULL,
-  PRIMARY KEY (U_id)
+  PRIMARY KEY (U_id),
+  UNIQUE (username)
 );
 
 CREATE TABLE Rooms (
@@ -23,7 +23,6 @@ CREATE TABLE Rooms (
 );
 
 -- if you want to get rid of a referenced table below, first you need to get rid of this table, then drop the one above.  
-
 CREATE TABLE MessagesRoomsBridge (
   MR_id int NOT NULL,
   message_id int NOT NULL,
